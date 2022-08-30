@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
-import 'package:netflix_clone/core/constants.dart';
 
 class VideoWidget extends StatelessWidget {
+  final String image;
   const VideoWidget({
-    Key? key,
+    Key? key, required this.image,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class VideoWidget extends StatelessWidget {
           width: double.infinity,
           height: 200,
           child: Image.network(
-            kHotAndNewTempImg,
+           image,
             fit: BoxFit.cover,
           ),
         ),

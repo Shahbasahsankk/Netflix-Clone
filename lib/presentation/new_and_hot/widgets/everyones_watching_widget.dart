@@ -5,8 +5,14 @@ import 'package:netflix_clone/presentation/home/widgets/custom_button_widget.dar
 import 'package:netflix_clone/presentation/widgets/video_widget.dart';
 
 class EveryOnesWatchingWidget extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
   const EveryOnesWatchingWidget({
     Key? key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -15,7 +21,7 @@ class EveryOnesWatchingWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         kHeight10,
-        const VideoWidget(),
+        const VideoWidget(image: '',),
         kHeight20,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

@@ -5,8 +5,20 @@ import 'package:netflix_clone/presentation/home/widgets/custom_button_widget.dar
 import 'package:netflix_clone/presentation/widgets/video_widget.dart';
 
 class ComingSoonWidget extends StatelessWidget {
+  final String id;
+  final String month;
+  final String day;
+  final String posterPath;
+  final String movieName;
+  final String description;
   const ComingSoonWidget({
     Key? key,
+    required this.id,
+    required this.month,
+    required this.day,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -22,18 +34,18 @@ class ComingSoonWidget extends StatelessWidget {
               height: 450,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
-                    'FEB',
-                    style: TextStyle(
+                    month,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: kGreyColor,
                     ),
                   ),
                   Text(
-                    '11',
-                    style: TextStyle(
+                    day,
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
@@ -47,67 +59,66 @@ class ComingSoonWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const VideoWidget(),
+                     VideoWidget(image: posterPath,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'TALL GIRL 2',
-                            style: TextStyle(
-                              letterSpacing: -5,
-                              fontSize: 35,
+                            movieName,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 23,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        Row(
-                          children: const [
-                            CustomButtonWidget(
-                              icon: Icons.notification_add,
-                              iconSize: 16,
-                              title: 'Remind Me',
-                              textSize: 13,
-                            ),
-                            kWidth10,
-                            CustomButtonWidget(
-                              icon: Icons.info,
-                              iconSize: 16,
-                              title: 'Info',
-                              textSize: 13,
-                            ),
-                            kWidth10
-                          ],
-                        )
+                        const CustomButtonWidget(
+                          icon: Icons.notification_add,
+                          iconSize: 16,
+                          title: 'Remind Me',
+                          textSize: 13,
+                        ),
+                        kWidth10,
+                        const CustomButtonWidget(
+                          icon: Icons.info,
+                          iconSize: 16,
+                          title: 'Info',
+                          textSize: 13,
+                        ),
+                        kWidth10
                       ],
                     ),
                     kHeight10,
-                    const Text('Coming on Friday'),
-                        Row(
-                        children: [
-                          Image.network(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvqzzaddvtgMnkygige0xD04ts4LMBbBLcPQ&usqp=CAU',
-                            width: 20,
-                            height: 30,
-                          ),
-                          const Text(
-                            'FILM',
-                            style: TextStyle(fontSize: 13),
-                          ),
-                        ],
-                      ),
-                    
-                    const Text(
-                      'Tall Girl 2',
-                      style: TextStyle(
+                    Text('Coming on $day $month'),
+                    Row(
+                      children: [
+                        Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvqzzaddvtgMnkygige0xD04ts4LMBbBLcPQ&usqp=CAU',
+                          width: 20,
+                          height: 30,
+                        ),
+                        const Text(
+                          'FILM',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      movieName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     kHeight10,
-                    const Text(
-                      'Landing the lead in the school musical is a dream come true for Jodi, until the pressure sends her confidence - and her relationship - into a tailspain.',
-                      style: TextStyle(
+                    Text(
+                      description,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
                         color: kGreyColor,
                       ),
                     )
