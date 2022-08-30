@@ -27,3 +27,7 @@ const TextStyle kHomeTitleText = TextStyle(
 // avatar netflix
 
 const String avatarImageUrl='https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png';
+
+// no Image url
+
+const nullImage='https://images.wallpaperscraft.com/image/single/no_image_inscription_text_151413_938x1668.jpg';

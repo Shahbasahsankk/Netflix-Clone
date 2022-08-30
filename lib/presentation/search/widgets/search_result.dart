@@ -27,11 +27,15 @@ class SearchResultWidget extends StatelessWidget {
                 shrinkWrap: true,
                 crossAxisCount: 3,
                 children: List.generate(
-                    state.searchResultList.length,
-                    (index) => MainCard(
-                          imageURL:
-                              "$imageAppendURL${state.searchResultList[index].posterPath}",
-                        )),
+                  state.searchResultList.length,
+                  (index) {
+                    final url="$imageAppendURL${state.searchResultList[index].posterPath}";
+                    return MainCard(
+                      imageURL: url=='${imageAppendURL}null'? nullImage:
+                          "$imageAppendURL${state.searchResultList[index].posterPath}",
+                    );
+                  },
+                ),
               );
             },
           ),
