@@ -85,15 +85,10 @@ class ScreenHome extends StatelessWidget {
                         ? nullImage
                         : '$imageAppendURL${m.posterPath}';
                   }).toList().sublist(0,10);
-                  // homecardposter
-                   final trend = state.trendingList.map((m) {
-                    return m.posterPath == null
-                        ? nullImage
-                        : '$imageAppendURL${m.posterPath}';
-                  }).toList();
+                  
                   return ListView(
                     children: [
-                      BackgroundCard(url: trend[0]),
+                     BackgroundCard(url: trending[0]),
                       MainTitleCard(
                         title: 'Released in the past year',
                         posterList: releasedPastYear,

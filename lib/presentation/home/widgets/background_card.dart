@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
 import 'package:netflix_clone/presentation/home/widgets/custom_button_widget.dart';
 
+
 class BackgroundCard extends StatelessWidget {
   const BackgroundCard({Key? key, required this.url}) : super(key: key);
   final String url;

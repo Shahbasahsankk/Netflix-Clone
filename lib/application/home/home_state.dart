@@ -20,7 +20,7 @@ class HomeState with _$HomeState {
         tenseDaramasList: [],
         southIndianMovieList: [],
         trendingList: [],
-        isLoading: false,
+        isLoading: true,
         isError: false,
       );
 }
