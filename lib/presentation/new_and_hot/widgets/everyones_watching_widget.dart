@@ -21,7 +21,7 @@ class EveryOnesWatchingWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         kHeight10,
-        const VideoWidget(image: '',),
+         VideoWidget(image: posterPath,),
         kHeight20,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -62,17 +62,19 @@ class EveryOnesWatchingWidget extends StatelessWidget {
             ),
           ],
         ),
-        const Text(
-          'Friends',
-          style: TextStyle(
+         Text(
+          movieName,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
         kHeight10,
-        const Text(
-          'This hit sitcome follows the merry disadventures of six 20-something pals as they navigate the pitfalls of work, life and love in 1980s Manhattan.',
-          style: TextStyle(
+         Text(
+         description,
+         maxLines: 4,
+         overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
             color: kGreyColor,
           ),
         ),

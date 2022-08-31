@@ -66,26 +66,19 @@ class ScreenNewAndHot extends StatelessWidget {
             ),
           ),
         ),
-        body: SafeArea(
+        body: const SafeArea(
           child: TabBarView(
             children: [
-              const ComingSoonList(
+              ComingSoonList(
                 key: Key('Coming soon'),
               ),
-              _buildEveryOneWatching(),
+             EveryOnesWatchingList(
+              key: Key('EveryOnes Watching'),
+             )
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildEveryOneWatching() {
-    return ListView.builder(
-      itemBuilder: (context, index) =>
-          // const EveryOnesWatchingWidget(),
-          const SizedBox(),
-      itemCount: 5,
     );
   }
 }
@@ -100,48 +93,116 @@ class ComingSoonList extends StatelessWidget {
         const LoadDataInComingSoon(),
       );
     });
-    return BlocBuilder<HotAndNewBloc, HotAndNewState>(
-      builder: (context, state) {
-        if (state.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
-          );
-        } else if (state.isError) {
-          return const Center(
-            child: Text('Error Occured'),
-          );
-        } else if (state.comingSoonList.isEmpty) {
-          return const Center(
-            child: Text('No Data'),
-          );
-        } else {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final movie = state.comingSoonList[index];
-              final url = "$imageAppendURL${movie.posterPath}";
-              if (movie.id == null) {
-                return const SizedBox();
-              }
-              final  _date=DateTime.parse(movie.releaseDate!);
-             final formatedDate= DateFormat.yMMMMd('en_US').format(_date);
-              return ComingSoonWidget(
-                id: movie.id.toString(),
-                month: formatedDate.split(' ').first.substring(0,3).toUpperCase(),
-                day: movie.releaseDate!.split('-')[1],
-                posterPath: url == '${imageAppendURL}null'
-                    ? nullImage
-                    : '$imageAppendURL${movie.posterPath}',
-                movieName: movie.originalTitle ?? 'No Title',
-                description: movie.overview ?? 'No Description',
-              );
-            },
-            itemCount: state.comingSoonList.length,
-          );
-        }
+    return RefreshIndicator(
+      onRefresh: ()async{
+        BlocProvider.of<HotAndNewBloc>(context).add(
+        const LoadDataInComingSoon(),
+      );
       },
+      child: BlocBuilder<HotAndNewBloc, HotAndNewState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            );
+          } else if (state.isError) {
+            return const Center(
+              child: Text('Error Occured'),
+            );
+          } else if (state.comingSoonList.isEmpty) {
+            return const Center(
+              child: Text('No Data'),
+            );
+          } else {
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final movie = state.comingSoonList[index];
+                final url = "$imageAppendURL${movie.posterPath}";
+                if (movie.id == null) {
+                  return const SizedBox();
+                }
+                final _date = DateTime.parse(movie.releaseDate!);
+                final formatedDate = DateFormat.yMMMMd('en_US').format(_date);
+                return ComingSoonWidget(
+                  id: movie.id.toString(),
+                  month:
+                      formatedDate.split(' ').first.substring(0, 3).toUpperCase(),
+                  day: movie.releaseDate!.split('-')[1],
+                  posterPath: url == '${imageAppendURL}null'
+                      ? nullImage
+                      : '$imageAppendURL${movie.posterPath}',
+                  movieName: movie.originalTitle ?? 'No Title',
+                  description: movie.overview ?? 'No Description',
+                );
+              },
+              itemCount: state.comingSoonList.length,
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+
+class EveryOnesWatchingList extends StatelessWidget {
+  const EveryOnesWatchingList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<HotAndNewBloc>(context).add(
+        const LoadDataInEveryOnesWatching(),
+      );
+    });
+    return RefreshIndicator(
+      onRefresh: ()async{
+        BlocProvider.of<HotAndNewBloc>(context).add(
+        const LoadDataInEveryOnesWatching(),
+      );
+      },
+      child: BlocBuilder<HotAndNewBloc, HotAndNewState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            );
+          } else if (state.isError) {
+            return const Center(
+              child: Text('Error Occured'),
+            );
+          } else if (state.everyOnesWatchingList.isEmpty) {
+            return const Center(
+              child: Text('No Data'),
+            );
+          } else {
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final tv = state.everyOnesWatchingList[index];
+                final url = "$imageAppendURL${tv.posterPath}";
+                if (tv.id == null) {
+                  return const SizedBox();
+                }
+                return EveryOnesWatchingWidget(
+                  posterPath: url == '${imageAppendURL}null'
+                      ? nullImage
+                      : '$imageAppendURL${tv.posterPath}',
+                  movieName: tv.originalName ?? 'No Name',
+                  description: tv.overview ?? 'No Description',
+                );
+              },
+              itemCount: state.everyOnesWatchingList.length,
+            );
+          }
+        },
+      ),
     );
   }
 }

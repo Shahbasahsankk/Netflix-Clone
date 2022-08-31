@@ -30,6 +30,9 @@ class HotAndNewData {
   String? originalTitle;
   @JsonKey(name: 'overview')
   String? overview;
+  // in case of tv series, we use original name instead of original title
+  @JsonKey(name:'original_name')
+  String? originalName;
   @JsonKey(name: 'poster_path')
   String? posterPath;
   @JsonKey(name: 'release_date')
@@ -43,6 +46,7 @@ class HotAndNewData {
     this.originalLanguage,
     this.originalTitle,
     this.overview,
+    this.originalName,
     this.posterPath,
     this.releaseDate,
     this.title,
