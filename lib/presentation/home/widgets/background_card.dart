@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
-import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/presentation/home/widgets/custom_button_widget.dart';
 
 class BackgroundCard extends StatelessWidget {
-  const BackgroundCard({Key? key}) : super(key: key);
-
+  const BackgroundCard({Key? key, required this.url}) : super(key: key);
+  final String url;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -13,10 +12,9 @@ class BackgroundCard extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 600,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(kMainImage),
+              image: NetworkImage(url),
               fit: BoxFit.cover,
             ),
           ),
@@ -35,7 +33,10 @@ class BackgroundCard extends StatelessWidget {
                   title: 'My List',
                 ),
                 _playButton(),
-                const CustomButtonWidget(icon: Icons.info, title: 'Info'),
+                const CustomButtonWidget(
+                  icon: Icons.info,
+                  title: 'Info',
+                ),
               ],
             ),
           ),
